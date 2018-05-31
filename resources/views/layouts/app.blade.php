@@ -85,18 +85,42 @@
                @if(Auth::check())
 
                 <div class="col-lg-4">
+                    
 
                        <ul class="list-group">
+
+                        <div class="panel-heading">
+                        
+                        Home
+
+                        </div>
 
                         <li class="list-group-item">
                             
                             <a href="{{ route('home') }}">Home</a>
                         </li>
 
+                        <div class="panel-heading">
+                        
+                        Categories
+
+                        </div>
+
                          <li class="list-group-item">
                             
                             <a href="{{ route('categories') }}">Categories</a>
                         </li>
+
+                        <li class="list-group-item">
+                            
+                            <a href="{{ route('category.create') }}">Create new category</a>
+                        </li>
+
+                        <div class="panel-heading">
+                        
+                        Posts
+
+                        </div>
 
                          <li class="list-group-item">
                             
@@ -109,15 +133,18 @@
                         </li>
 
 
-                        <li class="list-group-item">
-                            
-                            <a href="{{ route('category.create') }}">Create new category</a>
-                        </li>
+                        
                         
                         <li class="list-group-item">
                             
                             <a href="{{ route('post.create') }}">Create new post</a>
                         </li>
+
+                        <div class="panel-heading">
+                        
+                        Tags
+
+                        </div>
 
                         <li class="list-group-item">
                             
@@ -126,13 +153,47 @@
 
                         <li class="list-group-item">
                             
+                            <a href="{{ route('tag.create') }}">Create new tag</a>
+
+                        </li>
+
+                        <div class="panel-heading">
+                        
+                        Users
+
+                        </div>
+
+                        @if(Auth::user()->admin)
+
+                        <li class="list-group-item">
+                            
                             <a href="{{ route('users') }}">Users</a>
                         </li>
 
                         <li class="list-group-item">
                             
-                            <a href="{{ route('tag.create') }}">Create new tag</a>
+                            <a href="{{ route('user.create') }}">New Users</a>
                         </li>
+
+                        
+
+                        @endif
+
+                        <li class="list-group-item">
+                            
+                            <a href="{{ route('user.profile') }}">My profile</a>
+                        </li>
+
+                        
+
+                        @if(Auth::user()->admin)
+
+                        <li class="list-group-item">
+                            
+                            <a href="{{ route('settings') }}">Settings</a>
+                        </li>
+
+                        @endif
 
                          
 
