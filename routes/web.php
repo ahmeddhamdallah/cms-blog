@@ -16,9 +16,58 @@ Route::get('/test', function () {
     return App\User::find(1)->profile;
 });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/results', function (){
+
+    $posts =  \App\Post::where('title', 'like', '%' . request('query') . '%')->get();
+
+    return view('results')->with('posts', $posts)
+
+                           ->with('title', 'Search results : ' . request('query'))
+
+    	                   ->with('settings', \App\Setting::first())
+
+    	                   ->with('categories', \App\Category::take(4)->get())
+
+    	                   ->with('query', request('query'));
+
 });
+
+Route::get('/post/{slug}', [
+
+	'uses'    =>   'FrontEndController@singlePost',
+
+	'as'      =>   'post.single'
+  
+
+]);
+
+Route::get('/category/{id}', [
+
+	'uses'    =>   'FrontEndController@category',
+
+	'as'      =>   'category.single'
+  
+
+]);
+
+Route::get('/tag/{id}', [
+
+	'uses'    =>   'FrontEndController@tag',
+
+	'as'      =>   'tag.single'
+  
+
+]);
+
+
+Route::get('/', [
+		 
+		     'uses' => 'FrontEndController@index',
+
+		     'as'   => 'index'
+
+
+		]);
 
 Auth::routes();
 
@@ -90,6 +139,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
 		]);
 
+		Route::get('/user/create', [
+		 
+		     'uses' => 'UsersController@create',
+
+		     'as'   => 'user.create'
+
+
+		]);
+
 
 		Route::get('/categories', [
 		 
@@ -127,6 +185,24 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
 		]);
 
+		Route::get('/settings', [
+		 
+		     'uses' => 'SettingsController@index',
+
+		     'as'   => 'settings'
+
+
+		]);
+
+		Route::post('/settings/update', [
+		 
+		     'uses' => 'SettingsController@update',
+
+		     'as'   => 'settings.update'
+
+
+		]);
+
 		Route::get('/tag/edit/{id}', [
 		 
 		     'uses' => 'TagsController@edit',
@@ -146,7 +222,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
 		]);
 
-		Route::get('/tag/delete()/{id}', [
+		Route::post('/user/store', [
+		 
+		     'uses' => 'UsersController@store',
+
+		     'as'   => 'user.store'
+
+
+		]);
+
+		Route::get('/tag/delete/{id}', [
 		 
 		     'uses' => 'TagsController@destroy',
 
@@ -256,8 +341,51 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
 		]);
 
+		Route::get('user/admin/{id}', [
+		 
+		     'uses' => 'UsersController@admin',
+
+		     'as'   => 'user.admin'
 
 
+		]);
+
+		Route::get('user/delete/{id}', [
+		 
+		     'uses' => 'UsersController@destroy',
+
+		     'as'   => 'user.delete'
+
+
+		]);
+
+
+		Route::get('user/not-admin/{id}', [
+		 
+		     'uses' => 'UsersController@not_admin',
+
+		     'as'   => 'user.not.admin'
+
+
+		]);
+
+		Route::get('user/profile', [
+		 
+		     'uses' => 'ProfilesController@index',
+
+		     'as'   => 'user.profile'
+
+
+		]);
+
+		Route::post('/user/profile/update', [
+		 
+		     'uses' => 'ProfilesController@update',
+
+		     'as'   => 'user.profile.update'
+
+
+		]);
 
 });
 
