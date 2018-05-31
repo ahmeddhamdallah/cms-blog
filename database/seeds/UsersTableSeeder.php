@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
 
             'email'      =>  'ahmed.d.hamdallah@gmail.com',
 
-            'password'   =>  bcrypt('Efinance90'),
+            'password'   =>  bcrypt(''),
 
             'admin'     =>  1
 
