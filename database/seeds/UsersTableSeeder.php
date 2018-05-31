@@ -18,9 +18,9 @@ class UsersTableSeeder extends Seeder
             'name'       => 'Ahmed Desoky Hamdallah',
 
 
-            'email'      =>  'ahmed@des.lv',
+            'email'      =>  'ahmed.d.hamdallah@gmail.com',
 
-            'password'   =>  bcrypt('1233333'),
+            'password'   =>  bcrypt('Efinance90'),
 
             'admin'     =>  1
 
