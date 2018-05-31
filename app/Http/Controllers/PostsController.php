@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+
 use App\Tag;
 
 use App\Post;
@@ -46,19 +48,21 @@ class PostsController extends Controller
 
         $categories = Category::all();
 
+        $tags = Tag::all();
 
-        if($categories->count() == 0)
+
+        if($categories->count() == 0 || $tags->count() == 0)
 
         {
 
-            Session::flash('info', 'You Must Have Some Categories before attemping to create a Post');
+            Session::flash('info', 'You Must Have Some Categories and Tags before attemping to create a Post');
             return redirect()->back();
 
 
         }
 
         return view('admin.posts.create')->with('categories', $categories)
-                                         ->with('tags', Tag::all());
+                                         ->with('tags', $tags);
         
     }
 
@@ -82,6 +86,8 @@ class PostsController extends Controller
 
            'tags'           =>  'required'
 
+           'user_id'  =>  Auth::id()
+
 
         ]);
 
@@ -102,7 +108,9 @@ class PostsController extends Controller
 
              'category_id'  =>  $request->category_id,
 
-             'slug'         =>  str_slug($request->title)
+             'slug'         =>  str_slug($request->title),
+
+
 
 
         ]);
