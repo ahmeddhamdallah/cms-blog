@@ -12,7 +12,7 @@ class Post extends Model
 
 
 	 protected $fillable = [
-        'title', 'content', 'featured', 'category_id','slug'
+        'title', 'content', 'featured', 'category_id','slug', 'user_id'
     ];
 
     public function getFeaturedAttribute($featured)
@@ -42,5 +42,13 @@ class Post extends Model
     	
 
 
+    }
+
+    public function user()
+
+    {
+
+        return $this->belongsTo('App\User');
+        
     }
 }
